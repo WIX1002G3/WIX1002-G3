@@ -1,0 +1,7 @@
+public class FinalProjectFOP {
+    
+    public static void main(String[] args) {
+        Game game = new Game("Attack on Titan", 800, 500);
+        game.start();
+    }
+} 
