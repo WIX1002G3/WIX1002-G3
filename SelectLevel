@@ -1,0 +1,27 @@
+import java.awt.*;
+
+public class SelectLevel {
+    
+    public Rectangle easyLevelButton = new Rectangle(350, 220, 100, 40);
+    public Rectangle hardLevelButton = new Rectangle(350, 280, 100, 40);
+    
+    public void render(Graphics g) {
+        Graphics2D gd = (Graphics2D) g;
+        Font fnt = new Font("ariel", Font.BOLD, 20);
+        g.setFont(fnt);
+        g.setColor(Color.white);
+            g.drawString("SELECT YOUR LEVEL", 290, 180);
+        
+        Font fnt2 = new Font("arial", Font.BOLD, 20);
+        g.setFont(fnt2);
+        g.setColor(Color.white);
+        g.drawString("Easy", easyLevelButton.x+25, easyLevelButton.y+25);
+        Font fnt1 = new Font("arial", Font.BOLD, 20);
+        g.setFont(fnt1);
+        g.setColor(Color.white);
+        g.drawString("Hard", hardLevelButton.x+22, hardLevelButton.y+25);
+        
+        gd.draw(easyLevelButton);
+        gd.draw(hardLevelButton);
+    }
+}
