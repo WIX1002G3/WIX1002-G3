@@ -1,0 +1,59 @@
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class MouseInput extends MouseAdapter{ 
+   // private boolean mousePressed;
+    
+    public MouseInput() {}
+
+    @Override
+    public void mouseClicked(MouseEvent e) { }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //mousePressed = true;
+        int mx = e.getX();
+        int my = e.getY();     
+        /**
+        public Rectangle playButton = new Rectangle(350, 220, 100, 40);
+        public Rectangle quitButton = new Rectangle(350, 280, 100, 40);
+        */
+        if (Game.State == Game.STATE.MENU) {
+            //Play Button
+            if (mx >= 350 && mx <= 450) {
+                if (my > 220 && my <= 260) {
+                //Press play button
+                Game.State = Game.STATE.LEVEL;
+                }
+            }
+            //Quit Button
+            if (mx >= 350 && mx <= 450) {
+                if (my > 280 && my <= 320) {
+                    System.exit(1);
+                }
+            }
+        } else if (Game.State == Game.STATE.LEVEL) {
+            if (mx >= 350 && mx <= 450) {
+                if (my > 220 && my <= 260) {
+                //When select easy level
+                Game.State = Game.STATE.GAME;
+                }
+            }
+            //When select hard level
+            if (mx >= 350 && mx <= 450) {
+                if (my > 280 && my <= 320) {
+                    //
+                }
+            }
+        }   
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) { }
+    
+    @Override
+    public void mouseEntered(MouseEvent e) { }
+
+    @Override
+    public void mouseExited(MouseEvent e) { } 
+}
