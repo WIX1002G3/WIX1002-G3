@@ -18,4 +18,10 @@ public class wall {
     public void getHp {
         return hp;
     }
+    
+    public void wallLogic {
+        if (hp == 0) {
+            game.gameOver();
+        }
+    }
 }
