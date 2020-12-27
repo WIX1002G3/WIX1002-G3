@@ -1,26 +1,27 @@
 import java.util.Scanner;
 
 public class wall {
-    private int unitWall,hp;
+    private int unitWall;
+    private int[] hp;
     
-    public void setUnitWall {
+    public void setUnitWall() {
         this.unitWall = unitWall;
     }
     
-    public void setHp {
+    public void setHp() {
         this.hp = hp;
     }
     
-    public void getUnitWall {
+    public void getUnitWall() {
         return unitWall;
     }
     
-    public void getHp {
+    public void getHp() {
         return hp;
     }
     
-    public void wallLogic {
-        if (hp == 0) {
+    public void wallLogic() {
+        if (hp <= 0) {
             game.gameOver();
         }
     }
