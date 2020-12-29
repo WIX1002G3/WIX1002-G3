@@ -1,28 +1,21 @@
-import java.util.Scanner;
-
 public class wall {
-    private int unitWall;
-    private int[] hp;
+    //initialize every wall with 50 HP
+    private int[] hp = {50,50,50,50,50,50,50,50,50,50};
     
-    public void setUnitWall() {
-        this.unitWall = unitWall;
+    //mutator for how many hp to add/remove for each wall
+    public void setHp(int column,int hpChg) {
+        hp[column] = hp[column] + hpChg;    //'+' is used because when it meets '-' it will follows as minus
     }
-    
-    public void setHp() {
-        this.hp = hp;
+    //accessor for getting hp value for each wall
+    public int getHp(int column) {
+        return hp[column];
     }
-    
-    public void getUnitWall() {
-        return unitWall;
-    }
-    
-    public void getHp() {
-        return hp;
-    }
-    
+    //logic to lose the game if one of the wall HP falls to zero or below.
     public void wallLogic() {
-        if (hp <= 0) {
-            game.gameOver();
+        for (int i = 0; i < 10; i++) {
+            if (hp[i] <= 0) {
+                game.gameOver();
+            }
         }
     }
 }
