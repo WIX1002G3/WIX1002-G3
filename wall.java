@@ -10,12 +10,4 @@ public class wall {
     public int getHp(int column) {
         return hp[column];
     }
-    //logic to lose the game if one of the wall HP falls to zero or below.
-    public void wallLogic() {
-        for (int i = 0; i < 10; i++) {
-            if (hp[i] <= 0) {
-                game.gameOver();
-            }
-        }
-    }
 }
