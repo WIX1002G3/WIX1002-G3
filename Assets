@@ -1,0 +1,17 @@
+import java.awt.image.BufferedImage;
+
+public class Assets {
+    
+    private static final int width = 50, height = 50;
+    
+    public static BufferedImage wall, ground, emptyBlack;
+    
+    public static void init() {
+        SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/images/wall.jpg"));
+        SpriteSheet sheet2 = new SpriteSheet(ImageLoader.loadImage("/images/ground.jpg"));
+        SpriteSheet sheet3 = new SpriteSheet(ImageLoader.loadImage("/images/black.jpg"));
+        wall = sheet1.show(0, 0, width, height);
+        ground = sheet2.show(0, 0, width, height);
+        emptyBlack = sheet3.show(0, 0, width, height);
+    }
+}
