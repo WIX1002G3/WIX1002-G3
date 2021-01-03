@@ -1,0 +1,14 @@
+import finalprojectfop.gfx.Assets;
+
+
+public class NullTile extends Tile{
+    
+    public NullTile(int id) {
+        super(Assets.emptyBlack, id);
+    }
+    
+    @Override
+    public boolean isSolid() {
+        return true;
+    }
+}
