@@ -1,3 +1,5 @@
+
+import finalprojectfop.gfx.Assets;
 import finalprojectfop.gfx.ImageLoader;
 import java.awt.Graphics;
 import java.awt.Canvas;
@@ -16,10 +18,15 @@ public class Game extends Canvas implements Runnable{
     private Graphics g;
     private BufferedImage background;
     private BufferedImage background2;
+    private BufferedImage background3;
+    private BufferedImage background4;
     
-    private Menu menu;
-    private SelectLevel selectLevel;
+    public static Menu menu;
+    public static SelectLevel selectLevel;
+    public static Storyline storyLine;
+    public static StoryLine2 storyLine2;
     public static STATE State = STATE.MENU;
+    private World world;
     
     public Game(String title, int width, int height) {
         this.width = width;
@@ -30,20 +37,29 @@ public class Game extends Canvas implements Runnable{
     
     public static enum STATE {
         MENU,
+        STORY1,
+        STORY2,
         LEVEL,
         GAME
-    };
+    }
     
     private void init() {
         display = new Display(title, width, height);
+        Assets.init();
         background = ImageLoader.loadImage("/images/image4.jpg");
         background2 = ImageLoader.loadImage("/images/image3.jpg");
+        background3 = ImageLoader.loadImage("/images/story1.jpg");
+        background4 = ImageLoader.loadImage("/images/story2.jpg");
+        
         menu = new Menu();
         selectLevel = new SelectLevel();
+        storyLine = new Storyline();
+        storyLine2 = new StoryLine2();
+        world = new World("src/finalprojectfop/resources/worlds/world1.txt");
         display.getCanvas().addMouseListener(new MouseInput());
     }
     
-    private void update() {
+    private void tick() {
         
     }
     
@@ -58,16 +74,29 @@ public class Game extends Canvas implements Runnable{
         g.fillRect(0, 0,width, height);
         //Clear Screen
         g.clearRect(0, 0, width, height);
-        //
-        //g.drawImage(testImage, 50, 200, this);
-        if(State == STATE.GAME) {
-            
-        } else if (State == STATE.MENU) {
-            g.drawImage(background, 0, 0, this);
-            menu.render(g);
-        } else if(State == STATE.LEVEL) {
-            g.drawImage(background2, 0, 0, this);
-            selectLevel.render(g);
+
+        if(null != State) switch (State) {
+            case GAME:
+                world.render(g);
+                break;
+            case MENU:
+                g.drawImage(background, 0, 0, this);
+                menu.render(g);
+                break;
+            case STORY1:
+                g.drawImage(background3, 0, 0, this);
+                storyLine.render(g);
+                break;
+            case STORY2:
+                g.drawImage(background4, 0, 0, this);
+                storyLine2.render(g);
+                break;
+            case LEVEL:
+                g.drawImage(background2, 0, 0, this);
+                selectLevel.render(g);
+                break;
+            default:
+                break;
         }
         g.dispose();
         bs.show();
@@ -78,7 +107,7 @@ public class Game extends Canvas implements Runnable{
         init();
         while(running) {
             //game loop
-            update();
+            tick();
             render();
         }
         stop();
@@ -103,3 +132,4 @@ public class Game extends Canvas implements Runnable{
         System.exit(1);
     }
 }
+
