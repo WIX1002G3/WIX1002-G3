@@ -1,6 +1,4 @@
 //In this class will only be used to store global level and weapon type
-package wix1002assignment;
-
 public class weapon {
     
     //initialize all weapon level as 0 (no weapon)
