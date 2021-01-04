@@ -9,7 +9,7 @@ public class weapon {
     public int getLevel(int row) {
         return level[row];
     }
-    //Set level of each row in the main game class.
+    //Set level of each row in the main game class. (lvl 0: No weapon)
     public void setLevel(int row,int lvl) {
         if (lvl >= 0 && lvl <4) {
             level[row] = lvl;
