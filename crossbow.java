@@ -1,6 +1,4 @@
 //Level 1, 2 coins    Level 2, 5 coins    Level 3, 10 coins
-package wix1002assignment;
-
 public class crossbow extends weapon {
     private int atkdmg,lvl;     //atkdmg for this crossbow, lvl for specified row weapon level
     
