@@ -4,7 +4,7 @@ public class weapon {
     //initialize all weapon level as 0 (no weapon)
     private int[] level,type = {0,0,0,0,0,0,0,0,0,0};
     
-    //0: No weapon   1: Crossbow   2: Guns   3: Catapult   4: Crossbow
+    //0: No weapon   1: Crossbow   2: Guns   3: Catapult   4: Cannon
     public int getType(int row) {    //Get what weapon type is on that row
         return type[row];
     }
