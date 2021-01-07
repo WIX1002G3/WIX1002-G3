@@ -65,7 +65,7 @@ public class armouredTitan {
         int min = hp[0];
         for (int j=0; j<hp.length;j++){
             if (hp[j]<min)
-                min=hp[j];
+                min = j;
         
         // move to lowest hp wall
         }
