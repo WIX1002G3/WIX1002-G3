@@ -1,0 +1,75 @@
+import java.util.concurrent.ThreadLocalRandom;
+public class armouredTitan {
+    
+    private int xAxis;
+    private int yAxis;
+    private String imagePath;
+    
+    public int getxAxis(){
+        return xAxis;
+    }
+    
+    public void setxAxis (int xAxis){
+        this.xAxis = xAxis;
+    }
+    
+    public int getyAxis(){
+        return yAxis;
+    }
+    
+    public void setyAxis (int yAxis){
+        this.yAxis = yAxis;
+    }
+    
+    public String getImagePath(){
+        return imagePath;
+    }
+    
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
+    }
+    
+    public armouredTitan (int xAxis, int yAxis, String imagePath){
+        super();
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
+        this.imagePath = imagePath;
+    }
+    
+    
+    private void spawnAT() {
+       
+        armouredTitan AT = new armouredTitan;
+        int xAxis = ThreadLocalRandom.current().nextInt(400,451);
+        int yAxis = ThreadLocalRandom.current().nextInt(0,601);
+        
+        // add condition if game is not over
+        // add enemy turn = true
+        int hour = getHour();
+        if (hour>4)
+            AT = new armouredTitan (xAxis,yAxis,"images"//location path of sprite.png);
+        
+        
+        // column has no weapon
+        int[] type = getType();
+        for (int i=0; i<type.length; i++){
+            if (type[i]==0){
+                //move to that row
+            else
+                //move forward
+            }
+        }
+                    
+        // column that has lowest hp wall
+        int[] hp = getHp();
+        int min = hp[0];
+        for (int j=0; j<hp.length;j++){
+            if (hp[j]<min)
+                min=hp[j];
+        
+        // move to lowest hp wall
+        }
+        
+
+}
+}
