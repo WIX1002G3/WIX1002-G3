@@ -36,40 +36,98 @@ public class armouredTitan {
         this.imagePath = imagePath;
     }
     
+    // used later to move AT forward
+    public void moveFront() {
+        AT.setxAxis(AT.getxAxis())-50;
+    }  
     
+    // used later to move AT to correct row
+    public int moveLR (int row){
+        switch (row){
+            case 1 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(50-AT.getyAxis()));
+                }
+            case 2 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(100-AT.getyAxis()));
+                }
+            case 3 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(150-AT.getyAxis()));
+                }
+            case 4 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(200-AT.getyAxis()));   
+                }
+            case 5 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(250-AT.getyAxis()));    
+                }
+            case 6 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(300-AT.getyAxis()));    
+                }
+            case 7 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(350-AT.getyAxis()));    
+                }
+            case 8 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(400-AT.getyAxis()));    
+                }
+            case 9 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(450-AT.getyAxis()));   
+                }
+            case 10 ->                 { 
+                    AT.setyAxis(AT.getyAxis()+(500-AT.getyAxis()));    
+                }
+    }
+    }
+    
+    // spawn AT in row 0
+    // add enemy turn == true
     private void spawnAT() {
        
         armouredTitan AT = new armouredTitan;
         int xAxis = ThreadLocalRandom.current().nextInt(400,451);
         int yAxis = ThreadLocalRandom.current().nextInt(0,601);
         
-        // add condition if game is not over
-        // add enemy turn = true
         int hour = getHour();
         if (hour>4)
             AT = new armouredTitan (xAxis,yAxis,"images"//location path of sprite.png);
+    }    
         
-        
-        // column has no weapon
+    // AI to prioritise moving to lane with no weapons, then to lowest wall HP    
+    public void moveVertical() {                
+        int row=0;
         int[] type = getType();
-        for (int i=0; i<type.length; i++){
-            if (type[i]==0){
-                //move to that row
-            else
-                //move forward
-            }
-        }
-                    
-        // column that has lowest hp wall
         int[] hp = getHp();
         int min = hp[0];
-        for (int j=0; j<hp.length;j++){
-            if (hp[j]<min)
-                min = j;
-        
-        // move to lowest hp wall
+        boolean priority1=false;
+        for (int i=0; i<type.length; i++){
+            if (type[i]==0){
+                row=i;
+                moveLR(row);
+                priority1=true;
+                break;
+                }
         }
         
-
-}
+        if (priority1=false)
+        for (int j=0; j<hp.length;j++){
+            if (hp[j]<min){
+                min = j;
+                j=row;
+            }   
+        }                      
+    }
+    
+    // method that randomises movement of AT either vertical or horizontal
+    public void randomMovement() {
+        int r = ThreadLocalRandom.current().nextInt(0,2);
+        switch (r) {
+            case 0 ->                 { 
+                moveVertical();
+                break;
+            }
+            
+            case 1 ->                 { 
+                moveFront();
+                break;
+            }
+        }
+    }
 }
