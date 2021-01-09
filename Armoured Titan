@@ -36,7 +36,7 @@ public class armouredTitan {
         this.imagePath = imagePath;
     }
     
-    // used later to move AT forward
+    // used later to move AT in front
     public void moveFront() {
         AT.setxAxis(AT.getxAxis())-50;
     }  
@@ -106,13 +106,15 @@ public class armouredTitan {
                 }
         }
         
-        if (priority1=false)
-        for (int j=0; j<hp.length;j++){
-            if (hp[j]<min){
-                min = j;
-                j=row;
-            }   
-        }                      
+        if (priority1=false){
+            for (int j=0; j<hp.length;j++){
+                if (hp[j]<min){
+                    min = j;
+                    j=row;
+                }       
+            }
+            moveLR(row);
+        }
     }
     
     // method that randomises movement of AT either vertical or horizontal
