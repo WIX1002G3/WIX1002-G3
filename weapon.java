@@ -1,4 +1,3 @@
-//In this class will only be used to store global level and weapon type
 public class weapon {
     
     //initialize all weapon level as 0 (no weapon)
@@ -24,33 +23,84 @@ public class weapon {
         if (lvl >= 0 && lvl <4) {
             level[row] = lvl;
         }
-        else System.out.println("Maximum level reached. (3)");  //Should implement a function where it requesting for other user input again (not skipped and become enemy's turn)
+        //Should implement a function where it requesting for other user input again (not skipped turn)
+        else System.out.println("Maximum level reached. (3)");
     }
-    
-/* (deprecated START)
-    
-    //Get appropriate attack damage value based on weapon type
-    public int getAtkDmg(int row) {
+    //Get attack damage base on type
+    public int getAtkDmg(int type, int level) {
+        int atkdmg = 0;
         
-        switch (type[row]) {
-            case 0 ->                 {
-                    
-                }
-            case 1 ->                 {
-                    int atkdmg = 5;
-                }
-            case 2 ->                 {
-                    int atkdmg = 10;
-                }
-            case 3 ->                 {
-                    int atkdmg = 0;
-                }
-            default ->                {
-                    
-                }
+        //Crossbow type----------------------------------------------------------
+        if (type == 1) {
+            switch (level) {
+                case 1 ->                 { //Level 1 damage 2
+                        atkdmg = 2;
+                    }
+                case 2 ->                 { //Level 2 damage 5
+                        atkdmg = 5;
+                    }
+                case 3 ->                 { //Level 3 damage 10
+                        atkdmg = 10;
+                    }
+                default ->                { //Level null damage 0
+                        atkdmg = 0;
+                    }
+            }
         }
+        //Guns type--------------------------------------------------------------
+        else if (type == 2) {
+            switch (level) {
+                case 1 ->                 { //Level 1 damage 5
+                        atkdmg = 5;
+                    }
+                case 2 ->                 { //Level 2 damage 10
+                        atkdmg = 10;
+                    }
+                case 3 ->                 { //Level 3 damage 12
+                        atkdmg = 12;
+                    }
+                default ->                { //Level null damage 0
+                        atkdmg = 0;
+                    }
+            }
+        }
+        //Catapult type----------------------------------------------------------
+        else if (type == 3) {
+            switch (level) {
+                case 1 ->                 { //Level 1 damage 10
+                        atkdmg = 10;
+                    }
+                case 2 ->                 { //Level 2 damage 15
+                        atkdmg = 15;
+                    }
+                case 3 ->                 { //Level 3 damage 20
+                        atkdmg = 20;
+                    }
+                default ->                { //Level null damage 0
+                        atkdmg = 0;
+                    }
+            }
+        }
+        //Cannon type------------------------------------------------------------
+        else if (type == 4) {
+            switch (level) {
+                case 1 ->                 { //Level 1 damage 15
+                        atkdmg = 15;
+                    }
+                case 2 ->                 { //Level 2 damage 20
+                        atkdmg = 20;
+                    }
+                case 3 ->                 { //Level 3 damage 25
+                        atkdmg = 25;
+                    }
+                default ->                { //Level null damage 0
+                        atkdmg = 0;
+                    }
+            }
+        }
+        //-----------------------------------------------------------------------
+        else {return 0;}
+        
         return atkdmg;
-    }   
-    
-    (deprecated END)    */
+    }
 }
