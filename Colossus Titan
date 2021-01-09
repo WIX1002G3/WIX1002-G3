@@ -9,127 +9,128 @@ import javax.swing.Timer;
 
 public class GamePlay extends JPanel {
 	
-	private weapon wallweapon = new weapon();
-	private int titanImagexpos = 400;
-	
-	//need to check y-coordinate, is it using single digit or by 50
-	private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-	
-	private Random random = new Random();
-	
-	private int ypos = random.nextInt(9);
-	
-	private Image titanImage;
-	
-	private int hpTitan = 50;
-	
-	private Timer timer;
-	
-	private int hour = 0;
-	
-	private int delay = 1000; //1 hour = 1 sec = 1000 milliseconds (can change)
-	
-	public GamePlay(){
-	
-	ActionListener taskPerformer = new ActionListener() {
-		      public void actionPerformed(ActionEvent evt) {
-		          hour = hour + 1;
-		          
-		          //to appear after 5 hours and after player's turn
-		          if (hour >=5 && (hour %2 != 0)) {
-		        	  ypos = random.nextInt(9);
-	
-		        	  //need to combine with weapon code (can't run if combine with weapon code)
-		        	/*  if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 1)
-		        	  {
-		        		  hpTitan = hpTitan - 2;
-		        	  }
-	
-		        	  else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 1)
-		        	  {
-		        		  hpTitan = hpTitan - 5;
-		        	  }
-	
-		        	  else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 1)
-		        	  {
-		        		  hpTitan = hpTitan - 10;
-		        	  } 
-		        	  else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 2)
-		        	  {
-		        		  hpTitan = hpTitan - 5;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 2)
-		        	  {
-		        		  hpTitan = hpTitan - 10;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 2)
-		        	  {
-		        		  hpTitan = hpTitan - 12;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 3)
-		        	  {
-		        		  hpTitan = hpTitan - 10;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 3)
-		        	  {
-		        		  hpTitan = hpTitan - 15;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 3)
-		        	  {
-		        		  hpTitan = hpTitan - 20;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 4)
-		        	  {
-		        		  hpTitan = hpTitan - 15;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 4)
-		        	  {
-		        		  hpTitan = hpTitan - 20;
-		        	  }
-		        	  else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 4)
-		        	  {
-		        		  hpTitan = hpTitan - 25;
-		        	  }*/
-				
-		        	  if(hpTitan <=0) {
-		        		  titanImage = gettitanDieImage();
-		        		  repaint();
-		        	  }else {
-		        		  titanImage = gettitanImage();
-		        		  repaint();
-		        	  }
-		          } else {
-		        	  //player code
-		          }
-		      }
-		  };
-		  
-		  timer = new Timer(delay, taskPerformer);
-		  timer.start();
-			
-	}
-	
-  //to show image
-	@Override
-	public void paintComponent(Graphics g) {
-	    super.paintComponent(g);
-	    g.drawImage(titanImage, 400, ypos*50, GamePlay.this);
-	}
-	
-	private static Image gettitanImage() {
+    private weapon wallweapon = new weapon();
+    private int titanImagexpos = 400;
+
+    //need to check y-coordinate, is it using single digit or by 50
+    private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    private Random random = new Random();
+
+    private int ypos = random.nextInt(9);
+
+    private Image titanImage;
+
+    private int hpTitan = 50;
+
+    private Timer timer;
+
+    private int hour = 0;
+
+    private int delay = 1000; //1 hour = 1 sec = 1000 milliseconds (can change)
+
+    public GamePlay(){
+
+    ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    hour = hour + 1;
+
+                    //to appear after 5 hours and after player's turn
+                    if (hour >=5 && (hour %2 != 0)) {
+                        ypos = random.nextInt(9);
+
+                        /*
+                        //need to combine with weapon code (can't run if combine with weapon code)
+                        if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 1)
+                        {
+                            hpTitan = hpTitan - 2;
+                        }
+
+                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 1)
+                        {
+                            hpTitan = hpTitan - 5;
+                        }
+
+                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 1)
+                        {
+                            hpTitan = hpTitan - 10;
+                        } 
+                        else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 2)
+                        {
+                            hpTitan = hpTitan - 5;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 2)
+                        {
+                            hpTitan = hpTitan - 10;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 2)
+                        {
+                            hpTitan = hpTitan - 12;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 3)
+                        {
+                            hpTitan = hpTitan - 10;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 3)
+                        {
+                            hpTitan = hpTitan - 15;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 3)
+                        {
+                            hpTitan = hpTitan - 20;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 4)
+                        {
+                            hpTitan = hpTitan - 15;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 4)
+                        {
+                            hpTitan = hpTitan - 20;
+                        }
+                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 4)
+                        {
+                            hpTitan = hpTitan - 25;
+                        } */
+
+                        if(hpTitan <=0) {
+                            titanImage = gettitanDieImage();
+                            repaint();
+                        }else {
+                            titanImage = gettitanImage();
+                            repaint();
+                        }
+                    } else {
+                        //player code
+                    }
+                }
+            };
+
+            timer = new Timer(delay, taskPerformer);
+            timer.start();
+
+    }
+
+    //to show image
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(titanImage, 400, ypos*50, GamePlay.this);
+    }
+
+    private static Image gettitanImage() {
         Image image = null;
         try {
-            image = ImageIO.read(GamePlay.class.getResource("ColossusTitan2.png"));
+            image = ImageIO.read(GamePlay.class.getResource("Images/ColossusTitan2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return image;
     }
-	
-	private static Image gettitanDieImage() {
+
+    private static Image gettitanDieImage() {
         Image image = null;
         try {
-            image = ImageIO.read(GamePlay.class.getResource("ColossusTitanDie.png"));
+            image = ImageIO.read(GamePlay.class.getResource("Images/ColossusTitanDie.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
