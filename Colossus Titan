@@ -12,7 +12,6 @@ public class GamePlay extends JPanel {
     private weapon wallweapon = new weapon();
     private int titanImagexpos = 400;
 
-    //need to check y-coordinate, is it using single digit or by 50
     private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     private Random random = new Random();
