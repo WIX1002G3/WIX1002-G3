@@ -40,7 +40,7 @@ public class GamePlay extends JPanel {
                         ypos = random.nextInt(9);
 
                         /*
-                        //need to combine with weapon code (can't run if combine with weapon code)
+                        //need to combine with weapon code but can't run if combine with weapon code
                         if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 1)
                         {
                             hpTitan = hpTitan - 2;
