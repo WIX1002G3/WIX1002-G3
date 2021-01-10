@@ -1,18 +1,26 @@
 
+package finalprojectfop;
+
 import finalprojectfop.gfx.Assets;
 import finalprojectfop.gfx.ImageLoader;
 import java.awt.Graphics;
 import java.awt.Canvas;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
-public class Game extends Canvas implements Runnable{
+
+public class Game extends Canvas implements Runnable, KeyListener{
     
     private Display display;
     public int width, height;
     public String title;
     private Thread thread;
     private boolean running = false;
+    private boolean gameStarted;
     
     private BufferStrategy bs;
     private Graphics g;
@@ -27,6 +35,19 @@ public class Game extends Canvas implements Runnable{
     public static StoryLine2 storyLine2;
     public static STATE State = STATE.MENU;
     private World world;
+    private HP hp;
+    private Coin coin;
+    private Hour hour;
+    private Weapon weapon;
+    private ArmouredTitan armouredtitan;
+    private ColossusTitan colossustitan;
+    private Controller c;
+    private DialogBox dialogbox;
+    
+    JTextField field1 = new JTextField();
+    JTextField field2 = new JTextField();
+    JTextField field3 = new JTextField();
+    JTextField field4 = new JTextField();
     
     public Game(String title, int width, int height) {
         this.width = width;
@@ -34,18 +55,39 @@ public class Game extends Canvas implements Runnable{
         this.title = title;
         display = new Display(title, width, height);
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            gameStarted = true;
+        } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            c.addBullet(new Bullet(500, 100, this));
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+       
+    }
     
     public static enum STATE {
         MENU,
         STORY1,
         STORY2,
         LEVEL,
-        GAME
+        GAME,
+        HARDGAME
     }
     
     private void init() {
-        display = new Display(title, width, height);
+        gameStarted = false;
         Assets.init();
+        DialogBox.init();
         background = ImageLoader.loadImage("/images/image4.jpg");
         background2 = ImageLoader.loadImage("/images/image3.jpg");
         background3 = ImageLoader.loadImage("/images/story1.jpg");
@@ -56,11 +98,21 @@ public class Game extends Canvas implements Runnable{
         storyLine = new Storyline();
         storyLine2 = new StoryLine2();
         world = new World("src/finalprojectfop/resources/worlds/world1.txt");
+        hp = new HP();
+        coin = new Coin();
+        hour = new Hour();
+        weapon = new Weapon(3);
+        armouredtitan = new ArmouredTitan();
+        colossustitan = new ColossusTitan();
+        c = new Controller(this);
+        dialogbox = new DialogBox();
+
         display.getCanvas().addMouseListener(new MouseInput());
+        display.getCanvas().addKeyListener(this);
     }
     
+    
     private void tick() {
-        
     }
     
     private void render() {
@@ -74,10 +126,80 @@ public class Game extends Canvas implements Runnable{
         g.fillRect(0, 0,width, height);
         //Clear Screen
         g.clearRect(0, 0, width, height);
-
+    
+        
+        
         if(null != State) switch (State) {
             case GAME:
                 world.render(g);
+                hp.render(g);
+                hp.tick();
+                coin.render(g);
+                coin.tick();
+                hour.render(g);
+                hour.start(); 
+                hour.tick();
+                weapon.init();
+                weapon.render(g);
+                //armouredtitan.init();
+                //armouredtitan.tick();
+                //armouredtitan.render(g);
+                colossustitan.render(g);
+                c.render(g);
+                c.tick();
+                //dialogbox.render();
+
+                    
+                Object[] fields = {
+    "Choose the weapon(s) you would like to upgrade. (Type a string of integer or leave it empty to skip)", field1,
+    "No weapons on the wall. Choose the weapon type you want to build on the wall (Type a string of integer [0 to 4])\n" + "0 = no weapon\n" + "1 = crossbow\n: 5 coins" + "2 = guns : 10 coins\n" + "3 = catapult\n" + "4 = cannon", field2,
+    "Choose the wall(s) that you would like to upgrade. (Type a string of integer)", field3,
+    "How many HP do you want to add up to the wall(s)? Current coin number: "+ coin.getTotalCoin(), field4, 
+    };
+    
+    
+    String value1, value2, value3, value4; 
+     if (Hour.getHour() == 1) {
+    
+        int result = JOptionPane.showConfirmDialog(null, fields, "Input", JOptionPane.OK_OPTION);
+                            //hour.stop();
+        if (result == JOptionPane.OK_OPTION) {
+            value1 = field1.getText();
+            value2 = field2.getText();
+            value3 = field3.getText();
+            value4 = field4.getText();
+            
+            int hpPoint = Integer.parseInt(value4);
+            
+            for (int i=0; i<10; i++) {
+                if (i == Integer.parseInt(value3)) {
+                    HP.setHp(i, hpPoint);
+                    
+                }
+            }
+        }
+     }
+
+    
+    
+                break;
+            
+            case HARDGAME:
+                world.render(g);
+                hp.render(g);
+                hp.tick();
+                coin.render(g);
+                coin.tick();
+                hour.render(g);
+                hour.start();
+               // hour.tick();
+  //              weapon.init();
+   //             weapon.render(g);
+//                armouredtitan.init();
+//                //armouredtitan.tick();
+//                armouredtitan.render(g);
+//                c.render(g);
+//                c.tick();
                 break;
             case MENU:
                 g.drawImage(background, 0, 0, this);
@@ -105,11 +227,26 @@ public class Game extends Canvas implements Runnable{
     @Override
     public void run() {
         init();
+        
+        int fps = 60;
+        double timePerTick = 1000000000 / fps;
+        double delta = 0;
+        long now;
+        long lastTime = System.nanoTime();
+        
+        
         while(running) {
-            //game loop
+            now  = System.nanoTime();
+            delta += (now - lastTime) / timePerTick;
+            lastTime = now;
+            
+            if(delta >= 1) {
             tick();
             render();
+            delta--;
+            }
         }
+        
         stop();
     }
     
@@ -132,4 +269,3 @@ public class Game extends Canvas implements Runnable{
         System.exit(1);
     }
 }
-
