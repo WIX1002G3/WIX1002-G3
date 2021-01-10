@@ -38,7 +38,7 @@ public class armouredTitan {
     
     // used later to move AT in front
     public void moveFront() {
-        AT.setxAxis(AT.getxAxis())-50;
+        AT.setxAxis(AT.getxAxis())+50;
     }  
     
     // used later to move AT to correct row
@@ -82,8 +82,8 @@ public class armouredTitan {
     private void spawnAT() {
        
         armouredTitan AT = new armouredTitan;
-        int xAxis = ThreadLocalRandom.current().nextInt(400,451);
-        int yAxis = ThreadLocalRandom.current().nextInt(0,601);
+        int xAxis = ThreadLocalRandom.current().nextInt(0,51);
+        int yAxis = ThreadLocalRandom.current().nextInt(0,501);
         
         int hour = getHour();
         if (hour>4)
