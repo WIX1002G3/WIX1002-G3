@@ -1,0 +1,68 @@
+
+public class CoinHardMode {
+
+    private static int CoinLevel = 0;
+    private static int totalCoin = 50; //initial coin
+    //Get current value of coin
+
+    public int getTotalCoin() {
+        return totalCoin;
+    }
+
+    //Updates value of coin
+    public void setTotalCoin(int coinChg) {
+        totalCoin = totalCoin + coinChg;
+    }
+
+    //we should get an 
+    public void UpgradeCoing() {
+        Upgrade:
+        {
+            switch (CoinLevel) {
+                case 0:
+                    totalCoin -= 15;
+                    if (totalCoin < 0) {
+                        //must display not enough money for upgrading
+                        totalCoin += 15;
+                        break Upgrade;
+                    }
+                    CoinLevel++;
+                    break;
+
+                case 1:
+                    totalCoin -= 20;
+                    if (totalCoin < 0) {
+                        //must display not enough money for upgrading
+                        totalCoin += 20;
+                        break Upgrade;
+                    }
+                    CoinLevel++;
+                    break;
+                    
+                default : 
+                    //print the maximum level of coingenerator
+                    
+            }
+        }
+
+    }
+
+    private void CoinGenarator() {
+        switch (CoinLevel) {
+            case 0:
+                totalCoin += 5;
+
+                break;
+
+            case 1:
+                totalCoin += 10;
+                
+                break;
+            case 2:
+                totalCoin += 15;
+                break;
+                
+        }
+        
+    }
+}
