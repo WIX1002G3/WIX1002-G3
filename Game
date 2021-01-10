@@ -101,13 +101,13 @@ public class Game extends Canvas implements Runnable, KeyListener{
     public int setHp(int column,int hpChg) {
         hp[column] = hp[column] + hpChg;   
         //UPGRADING HP ACCORDING TO THE USER INPUT
-//        hpChg = Integer.parseInt(getValue4());
-//        String[] chr = getValue3().split("(?!^)");
-//        for (int i = 0; i < chr.length; i++) {
-//            if (hp[i] == Integer.parseInt(chr[i])) {
-//                hp[i] = 50 + hpChg;
-//            }
-//        }
+        hpChg = Integer.parseInt(getValue4());
+        String[] chr = getValue3().split("(?!^)");
+        for (int i = 0; i < chr.length; i++) {
+            if (hp[i] == Integer.parseInt(chr[i])) {
+                hp[i] = 50 + hpChg;
+            }
+        }
         return hp[column];
     }
     //accessor for getting hp value for each wall
@@ -157,21 +157,22 @@ public class Game extends Canvas implements Runnable, KeyListener{
     }
     public String getValue2() {
         if (result == JOptionPane.OK_OPTION) {
-             value1 = field1.getText();
+             value2 = field2.getText();
         }
-        return value1;
+        return value2;
     }
     public String getValue3() {
+        displayDialogBox();
         if (result == JOptionPane.OK_OPTION) {
-             value1 = field1.getText();
+             value3 = field3.getText();
         }
-        return value1;
+        return value3;
     }
     public String getValue4() {
         if (result == JOptionPane.OK_OPTION) {
-             value1 = field1.getText();
+             value3 = field4.getText();
         }
-        return value1;
+        return value3;
     }
      
     
