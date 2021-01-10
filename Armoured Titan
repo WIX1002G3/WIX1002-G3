@@ -9,11 +9,11 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 import javax.swing.Timer;
 
-public class ArmouredTitan {
-    private Weapon wallweapon = new Weapon(1);
-    //Coordinate x
+public class ArmouredTitan extends JPanel {
+    private weapon wallweapon = new weapon();
+    //x-coordinate
     private int titanImagexpos = 0;
-    //Coordinate y
+    //y-coordinate
     private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     private Random random = new Random();
@@ -21,53 +21,66 @@ public class ArmouredTitan {
     private int xpos=0;
     private int ypos;
 
-    private BufferedImage titanImage;
+    private Image titanImage;
     private int hpTitan = 100;
-    private Hour hour;
-    private final Timer timer;
-    private final int delay = 1000; //1 hour = 1 sec = 1000 milliseconds (can change)
+    private int hour = 0;
+    private Timer timer;
+    private int delay = 1000; //1 hour = 1 sec = 1000 milliseconds (can change)
 
     public ArmouredTitan(){
 
-    ActionListener taskPerformer = (ActionEvent evt) -> {
-        
-        //to appear after 5 hours and after player's turn
-        if (Hour.getHour() >=5 && (Hour.getHour() %2 != 0))
-            xpos++; 
+    ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    hour = hour + 1;
                     
-        if (Hour.getHour() >=5 && (Hour.getHour() %2 != 0)) {
-            ypos = random.nextInt(9);
-            
-            if(hpTitan <=0) {
-                gettitanDieImage();
-            }else {
-                gettitanImage();
-            }
-        } else {
-            //player code
+                    if (hour >=5 && (hour % 2 != 0))
+                        xpos++; 
+
+                    if (hour >=5 && (hour % 2 != 0)) {
+                        ypos = random.nextInt(9);
+
+                    if(hpTitan <=0) {
+                        titanImage = gettitanDieImage();
+                        repaint();
+                    }else {
+                        titanImage = gettitanImage();
+                        repaint();
+                        }
+                    } else {
+                        //player code
+                    }
+                }
+        };
+
+        timer = new Timer(delay, taskPerformer);
+        timer.start();
+    }
+    
+
+    //display image
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(titanImage, xpos*50, ypos*50, ArmouredTitan.this);
+    }
+    
+    private static Image gettitanImage() {
+        Image image = null;
+        try {
+            image = ImageIO.read(ArmouredTitan.class.getResource("Images/ArmouredTitan.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    };
+        return image;
+    }
 
-            timer = new Timer(delay, taskPerformer);
-            timer.start();
+    private static Image gettitanDieImage() {
+        Image image = null;
+        try {
+            image = ImageIO.read(ArmouredTitan.class.getResource("Images/ArmouredTitanDie.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
-    
-
-    //to show image
-    public void render(Graphics g) {
-        Font fnt = new Font("consolas", Font.BOLD, 10);
-        g.setFont(fnt);
-        g.setColor(Color.white);
-        g.drawImage(titanImage, xpos*50, ypos*50, null);
-    }
-    
-    
-    public BufferedImage gettitanImage() {
-        titanImage = ImageLoader.loadImage("/images/");
-        return titanImage;
-    }
-    
-    public BufferedImage gettitanDieImage() {
-        titanImage = ImageLoader.loadImage("/images/");
-        return titanImage;
-    }
+}
