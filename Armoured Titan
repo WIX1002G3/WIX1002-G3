@@ -1,135 +1,73 @@
-import java.util.concurrent.ThreadLocalRandom;
-public class armouredTitan {
+import finalprojectfop.gfx.ImageLoader;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+import javax.swing.Timer;
+
+public class ArmouredTitan {
+    private Weapon wallweapon = new Weapon(1);
+    //Coordinate x
+    private int titanImagexpos = 0;
+    //Coordinate y
+    private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    private Random random = new Random();
     
-    private int xAxis;
-    private int yAxis;
-    private String imagePath;
-    
-    public int getxAxis(){
-        return xAxis;
-    }
-    
-    public void setxAxis (int xAxis){
-        this.xAxis = xAxis;
-    }
-    
-    public int getyAxis(){
-        return yAxis;
-    }
-    
-    public void setyAxis (int yAxis){
-        this.yAxis = yAxis;
-    }
-    
-    public String getImagePath(){
-        return imagePath;
-    }
-    
-    public void setImagePath(String imagePath){
-        this.imagePath = imagePath;
-    }
-    
-    public armouredTitan (int xAxis, int yAxis, String imagePath){
-        super();
-        this.xAxis = xAxis;
-        this.yAxis = yAxis;
-        this.imagePath = imagePath;
-    }
-    
-    // used later to move AT in front
-    public void moveFront() {
-        AT.setxAxis(AT.getxAxis())+50;
-    }  
-    
-    // used later to move AT to correct row
-    public int moveLR (int row){
-        switch (row){
-            case 1 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(50-AT.getyAxis()));
-                }
-            case 2 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(100-AT.getyAxis()));
-                }
-            case 3 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(150-AT.getyAxis()));
-                }
-            case 4 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(200-AT.getyAxis()));   
-                }
-            case 5 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(250-AT.getyAxis()));    
-                }
-            case 6 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(300-AT.getyAxis()));    
-                }
-            case 7 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(350-AT.getyAxis()));    
-                }
-            case 8 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(400-AT.getyAxis()));    
-                }
-            case 9 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(450-AT.getyAxis()));   
-                }
-            case 10 ->                 { 
-                    AT.setyAxis(AT.getyAxis()+(500-AT.getyAxis()));    
-                }
-    }
-    }
-    
-    // spawn AT in row 0
-    // add enemy turn == true
-    private void spawnAT() {
-       
-        armouredTitan AT = new armouredTitan;
-        int xAxis = ThreadLocalRandom.current().nextInt(0,51);
-        int yAxis = ThreadLocalRandom.current().nextInt(0,501);
+    private int xpos=0;
+    private int ypos;
+
+    private BufferedImage titanImage;
+    private int hpTitan = 100;
+    private Hour hour;
+    private final Timer timer;
+    private final int delay = 1000; //1 hour = 1 sec = 1000 milliseconds (can change)
+
+    public ArmouredTitan(){
+
+    ActionListener taskPerformer = (ActionEvent evt) -> {
         
-        int hour = getHour();
-        if (hour>4)
-            AT = new armouredTitan (xAxis,yAxis,"images"//location path of sprite.png);
-    }    
-        
-    // AI to prioritise moving to lane with no weapons, then to lowest wall HP    
-    public void moveVertical() {                
-        int row=0;
-        int[] type = getType();
-        int[] hp = getHp();
-        int min = hp[0];
-        boolean priority1=false;
-        for (int i=0; i<type.length; i++){
-            if (type[i]==0){
-                row=i;
-                moveLR(row);
-                priority1=true;
-                break;
-                }
-        }
-        
-        if (priority1=false){
-            for (int j=0; j<hp.length;j++){
-                if (hp[j]<min){
-                    min = j;
-                    j=row;
-                }       
-            }
-            moveLR(row);
-        }
-    }
-    
-    // method that randomises movement of AT either vertical or horizontal
-    public void randomMovement() {
-        int r = ThreadLocalRandom.current().nextInt(0,2);
-        switch (r) {
-            case 0 ->                 { 
-                moveVertical();
-                break;
-            }
+        //to appear after 5 hours and after player's turn
+        if (Hour.getHour() >=5 && (Hour.getHour() %2 != 0))
+            xpos++; 
+                    
+        if (Hour.getHour() >=5 && (Hour.getHour() %2 != 0)) {
+            ypos = random.nextInt(9);
             
-            case 1 ->                 { 
-                moveFront();
-                break;
+            if(hpTitan <=0) {
+                gettitanDieImage();
+            }else {
+                gettitanImage();
             }
+        } else {
+            //player code
         }
+    };
+
+            timer = new Timer(delay, taskPerformer);
+            timer.start();
     }
-}
+    
+
+    //to show image
+    public void render(Graphics g) {
+        Font fnt = new Font("consolas", Font.BOLD, 10);
+        g.setFont(fnt);
+        g.setColor(Color.white);
+        g.drawImage(titanImage, xpos*50, ypos*50, null);
+    }
+    
+    
+    public BufferedImage gettitanImage() {
+        titanImage = ImageLoader.loadImage("/images/");
+        return titanImage;
+    }
+    
+    public BufferedImage gettitanDieImage() {
+        titanImage = ImageLoader.loadImage("/images/");
+        return titanImage;
+    }
