@@ -1,4 +1,6 @@
 
+package finalprojectfop;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -49,6 +51,8 @@ public class MouseInput extends MouseAdapter{
                         Game.State = Game.STATE.LEVEL;
                     }
                 }   break;
+                
+                
             case LEVEL:
                 if (mx >= 250 && mx <= 350) {
                     if (my > 200 && my <= 240) {
@@ -58,8 +62,7 @@ public class MouseInput extends MouseAdapter{
                 }   //When select hard level
                 if (mx >= 250 && mx <= 350) {
                     if (my > 280 && my <= 320) {
-                        //
-                        
+                        Game.State = Game.STATE.HARDGAME;
                     }
                 }   break;
             default:
