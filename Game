@@ -1,7 +1,6 @@
 
 package finalprojectfop;
 
-import static finalprojectfop.HP.setHp;
 import finalprojectfop.gfx.Assets;
 import finalprojectfop.gfx.ImageLoader;
 import java.awt.Graphics;
@@ -38,14 +37,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
     public static StoryLine2 storyLine2;
     public static STATE State = STATE.MENU;
     private World world;
- //   private HP hp;
-//    private Coin coin;
     private Hour hour;
     private Weapon weapon;
     private ArmouredTitan armouredtitan;
     private ColossusTitan colossustitan;
     private Controller c;
- //   private DialogBox dialogbox;
     
     JTextField field1 = new JTextField();
     JTextField field2 = new JTextField();
@@ -212,7 +208,6 @@ public class Game extends Canvas implements Runnable, KeyListener{
     private void init() {
         gameStarted = false;
         Assets.init();
-        DialogBox.init();
         background = ImageLoader.loadImage("/images/image4.jpg");
         background2 = ImageLoader.loadImage("/images/image3.jpg");
         background3 = ImageLoader.loadImage("/images/story1.jpg");
@@ -223,14 +218,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
         storyLine = new Storyline();
         storyLine2 = new StoryLine2();
         world = new World("src/finalprojectfop/resources/worlds/world1.txt");
-    //    hp = new HP();
-    //    coin = new Coin();
         hour = new Hour();
         weapon = new Weapon(3);
         armouredtitan = new ArmouredTitan();
         colossustitan = new ColossusTitan();
         c = new Controller(this);
- //       dialogbox = new DialogBox();
 
         display.getCanvas().addMouseListener(new MouseInput());
         display.getCanvas().addKeyListener(this);
