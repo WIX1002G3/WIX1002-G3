@@ -11,7 +11,7 @@ public class GamePlay extends JPanel {
 	
     private weapon wallweapon = new weapon();
     //Coordinate x
-    private int titanImagexpos = 400;
+    private int titanImagexpos = 450;
     //Coordinate y
     private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
@@ -114,7 +114,7 @@ public class GamePlay extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(titanImage, 400, ypos*50, GamePlay.this);
+        g.drawImage(titanImage, 450, ypos*50, GamePlay.this);
     }
 
     private static Image gettitanImage() {
