@@ -95,20 +95,31 @@ public class Game extends Canvas implements Runnable, KeyListener{
     
     //HP POINTS
         //initialize every wall with 50 HP
-    private static final int[] hp = {50,50,50,50,50,50,50,50,50,50};
+    private static int[] hp = {50,50,50,50,50,50,50,50,50,50};
     
     //mutator for how many hp to add/remove for each wall
-    public int setHp(int column,int hpChg) {
-        hp[column] = hp[column] + hpChg;   
+    public int setHp(int row,int hpChg) {
+        hp[row] = hp[row] + hpChg;   
         //UPGRADING HP ACCORDING TO THE USER INPUT
         hpChg = Integer.parseInt(getValue4());
-        String[] chr = getValue3().split("(?!^)");
+        String chosenrow = getValue3();
+        String[] chr = chosenrow.split("(?!^)");
         for (int i = 0; i < chr.length; i++) {
             if (hp[i] == Integer.parseInt(chr[i])) {
                 hp[i] = 50 + hpChg;
             }
-        }
-        return hp[column];
+        
+//        hp[column] = hp[column] + hpChg;   
+//        //UPGRADING HP ACCORDING TO THE USER INPUT
+//        hpChg = Integer.parseInt(getValue4());
+//        String[] chr = getValue3().split("(?!^)");
+//        for (int i = 0; i < chr.length; i++) {
+//            if (hp[i] == Integer.parseInt(chr[i])) {
+//                hp[i] = 50 + hpChg;
+//            }
+//        }
+//        return hp[column];
+    } return hp[row];
     }
     //accessor for getting hp value for each wall
     public static int getHp(int column) {
