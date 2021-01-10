@@ -99,15 +99,15 @@ public class Game extends Canvas implements Runnable, KeyListener{
     
     //mutator for how many hp to add/remove for each wall
     public int setHp(int row,int hpChg) {
-        hp[row] = hp[row] + hpChg;   
+       hp[row] = hp[row] + hpChg;   
         //UPGRADING HP ACCORDING TO THE USER INPUT
-        hpChg = Integer.parseInt(getValue4());
-        String chosenrow = getValue3();
-        String[] chr = chosenrow.split("(?!^)");
-        for (int i = 0; i < chr.length; i++) {
-            if (hp[i] == Integer.parseInt(chr[i])) {
-                hp[i] = 50 + hpChg;
-            }
+//        hpChg = Integer.parseInt(getValue4());
+//        String chosenrow = getValue3();
+//        String[] chr = chosenrow.split("(?!^)");
+//        for (int i = 0; i < chr.length; i++) {
+ //           if (hp[i] == Integer.parseInt(chr[i])) {
+//                hp[i] = 50 + hpChg;
+//            }
         
 //        hp[column] = hp[column] + hpChg;   
 //        //UPGRADING HP ACCORDING TO THE USER INPUT
