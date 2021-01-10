@@ -1,139 +1,132 @@
+
+package finalprojectfop;
+  
+import finalprojectfop.gfx.ImageLoader;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 import javax.swing.Timer;
 
-public class GamePlay extends JPanel {
-	
-    private weapon wallweapon = new weapon();
-    //x-Coordinate 
-    private int titanImagexpos = 450;
-    //y-Coordinate 
+public class ColossusTitan {
+    private Weapon wallweapon = new Weapon(1);
+    //Coordinate x
+    private int titanImagexpos = 400;
+    //Coordinate y
     private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     private Random random = new Random();
 
-    private int ypos = random.nextInt(9);
+    private int ypos;
 
-    private Image titanImage;
-
+    private BufferedImage titanImage;
     private int hpTitan = 50;
+    private Hour hour;
+    private final Timer timer;
+    private final int delay = 3000; //1 hour = 1 sec = 1000 milliseconds (can change)
 
-    private Timer timer;
+    public ColossusTitan(){
 
-    private int hour = 0;
-
-    private int delay = 1000; //1 hour = 1 sec = 1000 milliseconds (can change)
-
-    public GamePlay(){
-
-    ActionListener taskPerformer = new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                    hour = hour + 1;
-
-                    //to appear after 5 hours and after player's turn
-                    if (hour >=5 && (hour %2 != 0)) {
-                        ypos = random.nextInt(9);
-
-                        /*
-                        //need to combine with weapon code but can't run if combine with weapon code
-                        if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 1)
-                        {
-                            hpTitan = hpTitan - 2;
-                        }
-
-                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 1)
-                        {
-                            hpTitan = hpTitan - 5;
-                        }
-
-                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 1)
-                        {
-                            hpTitan = hpTitan - 10;
-                        } 
-                        else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 2)
-                        {
-                            hpTitan = hpTitan - 5;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 2)
-                        {
-                            hpTitan = hpTitan - 10;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 2)
-                        {
-                            hpTitan = hpTitan - 12;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 3)
-                        {
-                            hpTitan = hpTitan - 10;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 3)
-                        {
-                            hpTitan = hpTitan - 15;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 3)
-                        {
-                            hpTitan = hpTitan - 20;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 4)
-                        {
-                            hpTitan = hpTitan - 15;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 4)
-                        {
-                            hpTitan = hpTitan - 20;
-                        }
-                        else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 4)
-                        {
-                            hpTitan = hpTitan - 25;
-                        } */
-
-                        if(hpTitan <=0) {
-                            titanImage = gettitanDieImage();
-                            repaint();
-                        }else {
-                            titanImage = gettitanImage();
-                            repaint();
-                        }
-                    } else {
-                        //player code
-                    }
-                }
-            };
+    ActionListener taskPerformer = (ActionEvent evt) -> {
+        //hour.start();
+        
+        //to appear after 5 hours and after player's turn
+        if (Hour.getHour() >=5 && (Hour.getHour() %2 != 0)) {
+            ypos = random.nextInt(9);
+            
+            /*
+            //need to combine with weapon code but can't run if combine with weapon code
+            if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 1)
+            {
+            hpTitan = hpTitan - 2;
+            }
+            
+            else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 1)
+            {
+            hpTitan = hpTitan - 5;
+            }
+            
+            else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 1)
+            {
+            hpTitan = hpTitan - 10;
+            }
+            else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 2)
+            {
+            hpTitan = hpTitan - 5;
+            }
+            else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 2)
+            {
+            hpTitan = hpTitan - 10;
+            }
+            else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 2)
+            {
+            hpTitan = hpTitan - 12;
+            }
+            else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 3)
+            {
+            hpTitan = hpTitan - 10;
+            }
+            else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 3)
+            {
+            hpTitan = hpTitan - 15;
+            }
+            else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 3)
+            {
+            hpTitan = hpTitan - 20;
+            }
+            else if(wallweapon.getLevel(ypos) == 1 && wallweapon.getType(ypos) == 4)
+            {
+            hpTitan = hpTitan - 15;
+            }
+            else if(wallweapon.getLevel(ypos) == 2 && wallweapon.getType(ypos) == 4)
+            {
+            hpTitan = hpTitan - 20;
+            }
+            else if(wallweapon.getLevel(ypos) == 3 && wallweapon.getType(ypos) == 4)
+            {
+            hpTitan = hpTitan - 25;
+            } */
+            
+            if(hpTitan <=0) {
+                gettitanDieImage();
+            }else {
+                gettitanImage();
+            }
+        } else {
+            //player code
+        }
+    };
 
             timer = new Timer(delay, taskPerformer);
             timer.start();
-
     }
+    
 
     //to show image
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(titanImage, 450, ypos*50, GamePlay.this);
+    public void render(Graphics g) {
+        Font fnt = new Font("consolas", Font.BOLD, 10);
+        g.setFont(fnt);
+        g.setColor(Color.white);
+        g.drawString(""+hpTitan, 400, ypos*50);
+        g.drawImage(titanImage, 400, ypos*50, null);
     }
-
-    private static Image gettitanImage() {
-        Image image = null;
-        try {
-            image = ImageIO.read(GamePlay.class.getResource("Images/ColossusTitan2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+    
+    
+    public BufferedImage gettitanImage() {
+        titanImage = ImageLoader.loadImage("/images/ColossusTitan2.png");
+        return titanImage;
     }
-
-    private static Image gettitanDieImage() {
-        Image image = null;
-        try {
-            image = ImageIO.read(GamePlay.class.getResource("Images/ColossusTitanDie.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+    
+    public BufferedImage gettitanDieImage() {
+        titanImage = ImageLoader.loadImage("/images/ColossusTitanDie.png");
+        return titanImage;
     }
+    
+    
+    
+    
 }
