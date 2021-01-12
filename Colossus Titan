@@ -2,9 +2,6 @@
 package finalprojectfop;
   
 import finalprojectfop.gfx.ImageLoader;
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +12,7 @@ import javax.swing.Timer;
 public class ColossusTitan {
     private Weapon wallweapon = new Weapon(1);
     //Coordinate x
-    private int titanImagexpos = 400;
+    private int titanImagexpos = 450;
     //Coordinate y
     private int [] titanImageypos = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
@@ -111,8 +108,8 @@ public class ColossusTitan {
         Font fnt = new Font("consolas", Font.BOLD, 10);
         g.setFont(fnt);
         g.setColor(Color.white);
-        g.drawString(""+hpTitan, 400, ypos*50);
-        g.drawImage(titanImage, 400, ypos*50, null);
+        g.drawString(""+hpTitan, 450, ypos*50);
+        g.drawImage(titanImage, 450, ypos*50, null);
     }
     
     
@@ -125,8 +122,4 @@ public class ColossusTitan {
         titanImage = ImageLoader.loadImage("/images/ColossusTitanDie.png");
         return titanImage;
     }
-    
-    
-    
-    
 }
